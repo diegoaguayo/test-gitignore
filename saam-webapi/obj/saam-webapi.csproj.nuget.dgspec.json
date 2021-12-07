@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\e_rsuarez\\source\\repos\\saam-webapi\\saam-webapi\\saam-webapi.csproj": {}
+    "C:\\Users\\e_rsuarez\\Desktop\\SAAM\\saam-webapi\\saam-webapi\\saam-webapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\e_rsuarez\\source\\repos\\saam-webapi\\saam-webapi\\saam-webapi.csproj": {
+    "C:\\Users\\e_rsuarez\\Desktop\\SAAM\\saam-webapi\\saam-webapi\\saam-webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\e_rsuarez\\source\\repos\\saam-webapi\\saam-webapi\\saam-webapi.csproj",
+        "projectUniqueName": "C:\\Users\\e_rsuarez\\Desktop\\SAAM\\saam-webapi\\saam-webapi\\saam-webapi.csproj",
         "projectName": "saam-webapi",
-        "projectPath": "C:\\Users\\e_rsuarez\\source\\repos\\saam-webapi\\saam-webapi\\saam-webapi.csproj",
+        "projectPath": "C:\\Users\\e_rsuarez\\Desktop\\SAAM\\saam-webapi\\saam-webapi\\saam-webapi.csproj",
         "packagesPath": "C:\\Users\\e_rsuarez\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\e_rsuarez\\source\\repos\\saam-webapi\\saam-webapi\\obj\\",
+        "outputPath": "C:\\Users\\e_rsuarez\\Desktop\\SAAM\\saam-webapi\\saam-webapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\e_rsuarez\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,20 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
