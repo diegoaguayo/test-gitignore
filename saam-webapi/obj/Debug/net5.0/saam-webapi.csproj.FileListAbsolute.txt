@@ -87,3 +87,5 @@ C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\obj\Debug\net5.0\saam-we
 C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\obj\Debug\net5.0\ref\saam-webapi.dll
 C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\obj\Debug\net5.0\saam-webapi.pdb
 C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\obj\Debug\net5.0\saam-webapi.genruntimeconfig.cache
+C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

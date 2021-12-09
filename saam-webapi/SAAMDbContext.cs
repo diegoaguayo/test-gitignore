@@ -13,6 +13,10 @@ namespace saam_webapi
         {
         }
 
+        public DbSet<Faena> Faenas { get; set; }
         public DbSet<Especialidad> Especialidades { get; set; }
+        public DbSet<Trabajador> Trabajadores { get; set; }
+        public DbSet<Inasistencia> Inasistencias { get; set; }
+
     }
 }
