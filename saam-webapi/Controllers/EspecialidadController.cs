@@ -46,45 +46,6 @@ namespace saam_webapi.Controllers
             return mapper.Map<EspecialidadDTO>(especialidades);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] EspecialidadCreacionDTO especialidadCreacionDTO)
-        {
-            var especialidad = mapper.Map<Especialidad>(especialidadCreacionDTO);
-            context.Add(especialidad);
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, [FromBody] EspecialidadCreacionDTO especialidadCreacionDTO)
-        {
-            var especialidad = await context.Especialidades.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (especialidad == null)
-            {
-                return NotFound();
-            }
-
-            especialidad = mapper.Map(especialidadCreacionDTO, especialidad);
-
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var especialidad = await context.Especialidades.AnyAsync(x => x.Id == id);
-
-            if (!especialidad)
-            {
-                return NotFound();
-            }
-
-            context.Remove(new Especialidad() { Id = id });
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
 
     }
 }

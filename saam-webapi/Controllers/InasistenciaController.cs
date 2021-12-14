@@ -46,45 +46,6 @@ namespace saam_webapi.Controllers
             return mapper.Map<InasistenciaDTO>(inasistencias);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] InasistenciaCreacionDTO inasistenciaCreacionDTO)
-        {
-            var inasistencia = mapper.Map<Inasistencia>(inasistenciaCreacionDTO);
-            context.Add(inasistencia);
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, [FromBody] InasistenciaCreacionDTO inasistenciaCreacionDTO)
-        {
-            var inasistencia = await context.Inasistencias.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (inasistencia == null)
-            {
-                return NotFound();
-            }
-
-            inasistencia = mapper.Map(inasistenciaCreacionDTO, inasistencia);
-
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var inasistencia = await context.Inasistencias.AnyAsync(x => x.Id == id);
-
-            if (!inasistencia)
-            {
-                return NotFound();
-            }
-
-            context.Remove(new Inasistencia() { Id = id });
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
 
     }
 }

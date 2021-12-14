@@ -12,15 +12,16 @@ namespace saam_webapi.Utilities
     {
         public AutoMapperProfiles()
         {
+            
+            CreateMap<Lugar, LugarDTO>().ReverseMap();
+            CreateMap<Tipocontrato, TipocontratoDTO>().ReverseMap();
             CreateMap<Faena, FaenaDTO>().ReverseMap();
-            CreateMap<FaenaCreacionDTO, Faena>();
             CreateMap<Especialidad, EspecialidadDTO>().ReverseMap();
-            CreateMap<EspecialidadCreacionDTO, Especialidad>();
+            CreateMap<Maximoturno, MaximoturnoDTO>().ReverseMap();
+            CreateMap<Lista, ListaDTO>().ReverseMap();
+            CreateMap<Cartola, CartolaDTO>().ReverseMap();
             CreateMap<Trabajador, TrabajadorDTO>().ReverseMap();
-            CreateMap<TrabajadorCreacionDTO, Trabajador>();
             CreateMap<Inasistencia, InasistenciaDTO>().ReverseMap();
-            CreateMap<InasistenciaCreacionDTO, Inasistencia>();
-
 
         }
     }

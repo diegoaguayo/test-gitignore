@@ -9,11 +9,8 @@ namespace saam_webapi.Entities
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string Tipo { get; set; }
-        public int CostoTordinario { get; set; }
-        public int CostoTextraordinario { get; set; }
-        public int FaenaId { get; set; }
-        public Faena Faena { get; set; }
+        public int TerminalId { get; set; }
+        public Terminal Terminal { get; set; }
 
     }
 }

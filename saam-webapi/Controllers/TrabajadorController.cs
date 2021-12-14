@@ -46,45 +46,6 @@ namespace saam_webapi.Controllers
             return mapper.Map<TrabajadorDTO>(trabajadores);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] TrabajadorCreacionDTO trabajadorCreacionDTO)
-        {
-            var trabajador = mapper.Map<Trabajador>(trabajadorCreacionDTO);
-            context.Add(trabajador);
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, [FromBody] TrabajadorCreacionDTO trabajadorCreacionDTO)
-        {
-            var trabajador = await context.Trabajadores.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (trabajador == null)
-            {
-                return NotFound();
-            }
-
-            trabajador = mapper.Map(trabajadorCreacionDTO, trabajador);
-
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var trabajador = await context.Trabajadores.AnyAsync(x => x.Id == id);
-
-            if (!trabajador)
-            {
-                return NotFound();
-            }
-
-            context.Remove(new Trabajador() { Id = id });
-            await context.SaveChangesAsync();
-            return NoContent();
-        }
 
     }
 }

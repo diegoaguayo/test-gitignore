@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using saam_webapi.DTOs;
@@ -11,15 +11,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace saam_webapi.Controllers
 {
-    [Route("api/faenas")]
+    [Route("api/lugares")]
     [ApiController]
-    public class FaenaController : ControllerBase
+    public class LugarController : ControllerBase
     {
-        public readonly ILogger<FaenaController> logger;
+        public readonly ILogger<LugarController> logger;
         public readonly SAAMDbContext context;
         public readonly IMapper mapper;
 
-        public FaenaController(ILogger<FaenaController> logger,SAAMDbContext context, IMapper mapper)
+        public LugarController(ILogger<LugarController> logger, SAAMDbContext context, IMapper mapper)
         {
             this.logger = logger;
             this.context = context;
@@ -27,25 +27,24 @@ namespace saam_webapi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<FaenaDTO>>> Get()
+        public async Task<ActionResult<List<LugarDTO>>> Get()
         {
-            var faenas = await context.Faenas.ToListAsync();
-            return mapper.Map<List<FaenaDTO>>(faenas);
+            var lugares = await context.Lugares.ToListAsync();
+            return mapper.Map<List<LugarDTO>>(lugares);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<FaenaDTO>> Get(int id)
+        public async Task<ActionResult<LugarDTO>> Get(int id)
         {
-            var faenas = await context.Faenas.FirstOrDefaultAsync(x => x.Id == id);
+            var lugares = await context.Lugares.FirstOrDefaultAsync(x => x.Id == id);
 
-            if(faenas == null)
+            if (lugares == null)
             {
                 return NotFound();
             }
 
-            return mapper.Map<FaenaDTO>(faenas);
+            return mapper.Map<LugarDTO>(lugares);
         }
-
 
     }
 }
