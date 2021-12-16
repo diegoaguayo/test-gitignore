@@ -8,7 +8,7 @@ namespace saam_webapi.DTOs
     public class EspecialidadDTO
     {
         public string Nombre { get; set; }
-        public int TerminalId { get; set; }
+        public string Terminal { get; set; }
 
     }
 }

@@ -13,7 +13,7 @@ namespace saam_webapi.DTOs
         public string Papellido { get; set; }
         public string Sapellido { get; set; }
         public int TipocontratoId { get; set; }
-        public int TerminalId { get; set; }
+        public string Terminal { get; set; }
         public int EspecialidadId { get; set; }
     }
 }

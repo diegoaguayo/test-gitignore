@@ -7,7 +7,7 @@ namespace saam_webapi.Entities
 {
     public class Cartola
     {
-        public  int Id { get; set; }
+        public int Id { get; set; }
         public string Rut { get; set; }
         public int Posicion {get; set;}
         public int Puerta { get; set; }
@@ -15,8 +15,7 @@ namespace saam_webapi.Entities
         public Lista Lista { get; set; }
         public int EspecialidadId { get; set; }
         public Especialidad Especialidad { get; set; }
-        public int TerminalId { get; set; }
-        public Terminal Terminal { get; set; }
+        public string Terminal { get; set; }
 
     }
 }

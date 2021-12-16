@@ -9,8 +9,7 @@ namespace saam_webapi.Entities
     {
         public int Id { get; set; }
         public char Nombre { get; set; }
-        public int TerminalId { get; set; }
-        public Terminal Terminal { get; set; }
+        public string Terminal { get; set; }
 
     }
 }

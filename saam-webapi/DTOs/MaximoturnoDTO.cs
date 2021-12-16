@@ -11,7 +11,7 @@ namespace saam_webapi.DTOs
         public int Valor { get; set; }
         public int TipocontratoId { get; set; }
         public int EspecialidadId { get; set; }
-        public int TerminalId { get; set; }
+        public string Terminal { get; set; }
 
 
     }

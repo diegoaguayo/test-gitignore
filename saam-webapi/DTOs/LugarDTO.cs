@@ -8,7 +8,7 @@ namespace saam_webapi.DTOs
     public class LugarDTO
     {
         public string Nombre { get; set; }
-        public int TerminalId { get; set; }
+        public string Terminal { get; set; }
 
     }
 }

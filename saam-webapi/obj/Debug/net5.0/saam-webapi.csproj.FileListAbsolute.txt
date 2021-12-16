@@ -152,3 +152,9 @@ C:\Users\DhekD\Desktop\SAAM-WEB\saam-webapi\saam-webapi\obj\Debug\net5.0\saam-we
 C:\Users\DhekD\Desktop\SAAM-WEB\saam-webapi\saam-webapi\obj\Debug\net5.0\saam-webapi.dll
 C:\Users\DhekD\Desktop\SAAM-WEB\saam-webapi\saam-webapi\obj\Debug\net5.0\ref\saam-webapi.dll
 C:\Users\DhekD\Desktop\SAAM-WEB\saam-webapi\saam-webapi\obj\Debug\net5.0\saam-webapi.genruntimeconfig.cache
+C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\bin\Debug\net5.0\System.Data.SqlClient.dll
+C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
+C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\e_rsuarez\Desktop\SAAM\saam-webapi\saam-webapi\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

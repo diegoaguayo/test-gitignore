@@ -15,8 +15,7 @@ namespace saam_webapi.Entities
         public Tipocontrato Tipocontrato { get; set; }
         public int EspecialidadId { get; set; }
         public Especialidad Especialidad { get; set; }
-        public int TerminalId { get; set; }
-        public Terminal Terminal { get; set; }
+        public string Terminal { get; set; }
 
     }
 }

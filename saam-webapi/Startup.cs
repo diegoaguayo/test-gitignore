@@ -9,10 +9,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using saam_webapi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using saam_webapi.Utilities;
 
 namespace saam_webapi
 {
@@ -28,9 +30,17 @@ namespace saam_webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                var frontendURL = Configuration.GetValue<string>("frontend_url");
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader();
+                });
+            });
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<SAAMDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("stringConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("stringSAAM")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -51,6 +61,8 @@ namespace saam_webapi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

@@ -12,8 +12,8 @@ namespace saam_webapi.DTOs
         public DateTime Inicio { get; set; }
         public DateTime Termino { get; set; }
         public int Dias { get; set; }
-        public int TrabajadorId { get; set; }
+        public string Rut { get; set; }
         public int EspecialidadId { get; set; }
-        public int TerminalId { get; set; }
+        public string Terminal { get; set; }
     }
 }
