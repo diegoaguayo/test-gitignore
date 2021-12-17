@@ -47,5 +47,35 @@ namespace saam_webapi.Controllers
             return mapper.Map<CartolaDTO>(cartolas);
         }
 
+        [HttpGet("Filtro/{especialidad:int}/{lista:int}")]
+        public async Task<ActionResult<List<CartolaDTO>>> GetEspList(int especialidad,int lista)
+        {
+            var cartolas = new List<Cartola>();
+            if (especialidad != 0 && lista != 0)
+            {
+                cartolas = await context.Cartolas.Where(x => x.EspecialidadId == especialidad && x.ListaId == lista).ToListAsync();
+            }
+            else
+            {
+                if (especialidad == 0 && lista == 0)
+                {
+                    cartolas = await context.Cartolas.ToListAsync();
+                }
+                else
+                {
+                    if (especialidad == 0)
+                    {
+                        cartolas = await context.Cartolas.Where(x => x.ListaId == lista).ToListAsync();
+                    }
+                    if (lista == 0)
+                    {
+                        cartolas = await context.Cartolas.Where(x => x.EspecialidadId == especialidad).ToListAsync();
+                    }
+                }
+            }
+
+            return mapper.Map<List<CartolaDTO>>(cartolas);
+        }
+
     }
 }

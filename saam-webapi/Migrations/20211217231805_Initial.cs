@@ -45,7 +45,9 @@ namespace saam_webapi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Terminal = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    Creado = table.Column<int>(type: "int", nullable: false),
+                    Editado = table.Column<int>(type: "int", nullable: false),
+                    Eliminado = table.Column<int>(type: "int", nullable: false),
                     Maestro = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

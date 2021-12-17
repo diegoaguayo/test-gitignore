@@ -22,6 +22,7 @@ namespace saam_webapi.Utilities
             CreateMap<Cartola, CartolaDTO>().ReverseMap();
             CreateMap<Trabajador, TrabajadorDTO>().ReverseMap();
             CreateMap<Inasistencia, InasistenciaDTO>().ReverseMap();
+            CreateMap<HistorialRefresco, HistorialRefrescoDTO>().ReverseMap();
 
         }
     }

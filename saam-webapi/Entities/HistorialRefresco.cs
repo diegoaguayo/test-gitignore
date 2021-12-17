@@ -10,7 +10,9 @@ namespace saam_webapi.Entities
         public int Id { get; set; }
         public string Terminal { get; set; }
         public DateTime Fecha { get; set; }
-        public int Cantidad { get; set; }
+        public int Creado { get; set; }
+        public int Editado { get; set; }
+        public int Eliminado { get; set; }
         public string Maestro { get; set; }
 
     }

@@ -13,42 +13,21 @@ namespace saam_webapi.Utilities
 
         public static async Task<string> RefreshAll(SAAMDbContext SAAMcontext)
         {
-
-            await RefreshATI(SAAMcontext);
-            await RefreshITI(SAAMcontext);
-            await RefreshSTI(SAAMcontext);
-            await RefreshSVTI(SAAMcontext);
+            for (int i = 0;i < 4; i++)
+            {
+                await Maestros(SAAMcontext, i);
+            }
 
             return "Refresh All";
         }
 
-        public static async Task<string> RefreshATI(SAAMDbContext SAAMcontext)
+        public static async Task<string> RefreshTerminal(SAAMDbContext SAAMcontext, int terminal)
         {
-            await Maestros(SAAMcontext, 0);
+            await Maestros(SAAMcontext, terminal);
 
-            return "Refresh ATI";
+            return "Refresh Terminal";
         }
 
-        public static async Task<string> RefreshITI(SAAMDbContext SAAMcontext)
-        {
-            await Maestros(SAAMcontext, 1);
-
-            return "Refresh ITI";
-        }
-
-        public static async Task<string> RefreshSTI(SAAMDbContext SAAMcontext)
-        {
-            await Maestros(SAAMcontext, 2);
-
-            return "Refresh STI";
-        }
-
-        public static async Task<string> RefreshSVTI(SAAMDbContext SAAMcontext)
-        {
-            await Maestros(SAAMcontext, 3);
-
-            return "Refresh SVTI";
-        }
 
         public static async Task<bool> Maestros(SAAMDbContext SAAMcontext, int nterminal)
         {
@@ -60,7 +39,7 @@ namespace saam_webapi.Utilities
             builder.UserID = "notus";
             builder.Password = "n0tu5.0pt1s4t#2021";
             builder.InitialCatalog = terminal;
-            bool estado = await VerifyState(SAAMcontext);
+            bool estado = await VerifyState(SAAMcontext,terminal);
             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
                 connection.Open();
@@ -87,13 +66,13 @@ namespace saam_webapi.Utilities
             return true;
         }
 
-        public static async Task<bool> VerifyState(SAAMDbContext SAAMcontext)
+        public static async Task<bool> VerifyState(SAAMDbContext SAAMcontext,string terminal)
         {
-            var especialidades = await SAAMcontext.Especialidades.ToListAsync();
-            var faenas = await SAAMcontext.Faenas.ToListAsync();
-            var lugares = await SAAMcontext.Lugares.ToListAsync();
-            var trabajadores = await SAAMcontext.Trabajadores.ToListAsync();
-            var listas = await SAAMcontext.Listas.ToListAsync();
+            var especialidades = await SAAMcontext.Especialidades.Where(x => x.Terminal == terminal).ToListAsync();
+            var faenas = await SAAMcontext.Faenas.Where(x => x.Terminal == terminal).ToListAsync();
+            var lugares = await SAAMcontext.Lugares.Where(x => x.Terminal == terminal).ToListAsync();
+            var trabajadores = await SAAMcontext.Trabajadores.Where(x => x.Terminal == terminal).ToListAsync();
+            var listas = await SAAMcontext.Listas.Where(x => x.Terminal == terminal).ToListAsync();
             if (especialidades.Count == 0 && faenas.Count == 0 && lugares.Count == 0 && trabajadores.Count == 0 && listas.Count == 0)
             {
                 return true;
@@ -109,7 +88,8 @@ namespace saam_webapi.Utilities
             int ListaN = 0;
             int listaid = 0;
             int contador = 0;
-            int cambios = 0;
+            int cambioscreado = 0;
+            int cambiosmod = 0;
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
@@ -121,7 +101,17 @@ namespace saam_webapi.Utilities
                         if (especialidades == null)
                         {
                             await Add(SAAMcontext, terminal, maestro, reader);
-                            cambios++;
+                            cambioscreado++;
+                        }
+                        else
+                        {
+                            if (especialidades.Nombre != reader["desc_especialidad"].ToString())
+                            {
+                                especialidades.Nombre = reader["desc_especialidad"].ToString();
+                                SAAMcontext.Update(especialidades);
+                                await SAAMcontext.SaveChangesAsync();
+                                cambiosmod++;
+                            }
                         }
                     }
                     if ( maestro == "Faenas")
@@ -131,7 +121,17 @@ namespace saam_webapi.Utilities
                         if (faenas == null)
                         {
                             await Add(SAAMcontext, terminal, maestro, reader);
-                            cambios++;
+                            cambioscreado++;
+                        }
+                        else
+                        {
+                            if (faenas.Nombre != reader["descripcion"].ToString())
+                            {
+                                faenas.Nombre = reader["descripcion"].ToString();
+                                SAAMcontext.Update(faenas);
+                                await SAAMcontext.SaveChangesAsync();
+                                cambiosmod++;
+                            }
                         }
                     }
                     if (maestro == "Lugares")
@@ -141,7 +141,17 @@ namespace saam_webapi.Utilities
                         if (lugares == null)
                         {
                             await Add(SAAMcontext, terminal, maestro, reader);
-                            cambios++;
+                            cambioscreado++;
+                        }
+                        else
+                        {
+                            if (lugares.Nombre != reader["descripcion"].ToString())
+                            {
+                                lugares.Nombre = reader["descripcion"].ToString();
+                                SAAMcontext.Update(lugares);
+                                await SAAMcontext.SaveChangesAsync();
+                                cambiosmod++;
+                            }
                         }
                     }
                     if ( maestro == "Trabajadores")
@@ -151,8 +161,30 @@ namespace saam_webapi.Utilities
                         if (trabajadores == null)
                         {
                             await Add(SAAMcontext, terminal, maestro, reader);
-                            cambios++;
+                            cambioscreado++;
                         }
+                        else
+                        {
+                            var EspecialidadesQueryId = await SAAMcontext.Especialidades.FirstOrDefaultAsync(e => e.Origen == Convert.ToInt32(reader["especialidad"]) && e.Terminal == terminal);
+                            if (EspecialidadesQueryId == null)
+                            {
+                                EspecialidadesQueryId = await SAAMcontext.Especialidades.FirstOrDefaultAsync(e => e.Origen == 0 && e.Terminal == terminal);
+                            }
+                            var TiposQueryId = await SAAMcontext.Tipocontratos.FirstOrDefaultAsync(t => t.Nombre == Convert.ToChar(reader["planta"]) && t.Terminal == terminal);
+                            if (trabajadores.Nombres != reader["nombres"].ToString() || trabajadores.Papellido != reader["apellido1"].ToString() 
+                                || trabajadores.Sapellido != reader["apellido2"].ToString() || trabajadores.EspecialidadId != EspecialidadesQueryId.Id|| trabajadores.TipocontratoId != TiposQueryId.Id)
+                            {
+                                trabajadores.Nombres = reader["nombres"].ToString();
+                                trabajadores.Papellido = reader["apellido1"].ToString();
+                                trabajadores.Sapellido = reader["apellido2"].ToString();
+                                trabajadores.TipocontratoId = TiposQueryId.Id;
+                                trabajadores.EspecialidadId = EspecialidadesQueryId.Id;
+                                SAAMcontext.Update(trabajadores);
+                                await SAAMcontext.SaveChangesAsync();
+                                cambiosmod++;
+                            }
+                        }
+
                     }
                     if (maestro == "Cartolas")
                     {
@@ -187,7 +219,28 @@ namespace saam_webapi.Utilities
                             cartola.Terminal = terminal;
                             SAAMcontext.Add(cartola);
                             await SAAMcontext.SaveChangesAsync();
-                            cambios++;
+                            cambioscreado++;
+                        }
+                        else
+                        {
+                            var cartolas = await SAAMcontext.Cartolas.Where(e => e.ListaId == listas.Id && e.Terminal == terminal).ToListAsync();
+                            foreach (var cartola in cartolas)
+                            {
+                                var EspecialidadesQueryId = await SAAMcontext.Especialidades.FirstOrDefaultAsync(e => e.Origen == Convert.ToInt32(reader["especialidad"]) && e.Terminal == terminal);
+                                if (EspecialidadesQueryId == null)
+                                {
+                                    EspecialidadesQueryId = await SAAMcontext.Especialidades.FirstOrDefaultAsync(e => e.Origen == 0 && e.Terminal == terminal);
+                                }
+                                if (cartola.EspecialidadId != EspecialidadesQueryId.Id || cartola.Rut != reader["rut"].ToString() || cartola.Posicion != Convert.ToInt32(reader["orden"]))
+                                {
+                                    cartola.EspecialidadId = EspecialidadesQueryId.Id;
+                                    cartola.Rut = reader["rut"].ToString();
+                                    cartola.Posicion = Convert.ToInt32(reader["orden"]);
+                                    SAAMcontext.Update(cartola);
+                                    await SAAMcontext.SaveChangesAsync();
+                                    cambiosmod++;
+                                }
+                            }
                         }
                     }
 
@@ -196,7 +249,9 @@ namespace saam_webapi.Utilities
             HistorialRefresco historial = new HistorialRefresco();
             historial.Fecha = DateTime.Now;
             historial.Terminal = terminal;
-            historial.Cantidad = cambios;
+            historial.Creado = cambioscreado;
+            historial.Editado = cambiosmod;
+            historial.Eliminado = 0;
             historial.Maestro = maestro;
             SAAMcontext.Add(historial);
             await SAAMcontext.SaveChangesAsync();
@@ -257,7 +312,9 @@ namespace saam_webapi.Utilities
             HistorialRefresco historial = new HistorialRefresco();
             historial.Fecha = DateTime.Now;
             historial.Terminal = terminal;
-            historial.Cantidad = cambios;
+            historial.Creado = cambios;
+            historial.Editado = 0;
+            historial.Eliminado = 0;
             historial.Maestro = maestro;
             SAAMcontext.Add(historial);
             await SAAMcontext.SaveChangesAsync();
@@ -301,7 +358,7 @@ namespace saam_webapi.Utilities
                 {
                     EspecialidadesQueryId = await SAAMcontext.Especialidades.FirstOrDefaultAsync(e => e.Origen == 0 && e.Terminal == terminal);
                 }
-                var TiposQueryId = await SAAMcontext.Tipocontratos.FirstOrDefaultAsync(t => t.Nombre == Convert.ToChar(reader["planta"]));
+                var TiposQueryId = await SAAMcontext.Tipocontratos.FirstOrDefaultAsync(t => t.Nombre == Convert.ToChar(reader["planta"]) && t.Terminal == terminal);
                 Trabajador trabajador = new Trabajador();
                 trabajador.Nombres = reader["nombres"].ToString();
                 trabajador.Papellido = reader["apellido1"].ToString();
@@ -316,8 +373,6 @@ namespace saam_webapi.Utilities
 
             return true;
         }
-
-
 
         public static string SelectQuery(string maestro)
         {

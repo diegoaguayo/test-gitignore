@@ -10,7 +10,7 @@ using saam_webapi;
 namespace saam_webapi.Migrations
 {
     [DbContext(typeof(SAAMDbContext))]
-    [Migration("20211216191940_Initial")]
+    [Migration("20211217231805_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,7 +104,13 @@ namespace saam_webapi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Cantidad")
+                    b.Property<int>("Creado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Editado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Eliminado")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")

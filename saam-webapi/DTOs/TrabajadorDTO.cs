@@ -8,8 +8,7 @@ namespace saam_webapi.DTOs
     public class TrabajadorDTO
     {
         public string Rut { get; set; }
-        public string Pnombre { get; set; }
-        public string Snombre { get; set; }
+        public string Nombres { get; set; }
         public string Papellido { get; set; }
         public string Sapellido { get; set; }
         public int TipocontratoId { get; set; }

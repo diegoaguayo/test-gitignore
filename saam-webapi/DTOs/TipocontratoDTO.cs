@@ -7,6 +7,7 @@ namespace saam_webapi.DTOs
 {
     public class TipocontratoDTO
     {
+        public int Id { get; set; }
         public char Nombre { get; set; }
         public string Terminal { get; set; }
 

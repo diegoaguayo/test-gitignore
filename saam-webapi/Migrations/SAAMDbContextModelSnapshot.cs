@@ -102,7 +102,13 @@ namespace saam_webapi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Cantidad")
+                    b.Property<int>("Creado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Editado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Eliminado")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")

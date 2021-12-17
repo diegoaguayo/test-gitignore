@@ -39,25 +39,25 @@ namespace saam_webapi.Controllers
         [HttpGet("ATI")]
         public async Task<ActionResult<string>> RefreshATI()
         {
-            return await RefreshDb.RefreshATI(SAAMcontext);
+            return await RefreshDb.RefreshTerminal(SAAMcontext,0);
         }
 
         [HttpGet("ITI")]
         public async Task<ActionResult<string>> RefreshITI()
         {
-            return await RefreshDb.RefreshITI(SAAMcontext);
+            return await RefreshDb.RefreshTerminal(SAAMcontext,1);
         }
 
         [HttpGet("STI")]
         public async Task<ActionResult<string>> RefreshSTI()
         {
-            return await RefreshDb.RefreshSTI(SAAMcontext);
+            return await RefreshDb.RefreshTerminal(SAAMcontext,2);
         }
 
         [HttpGet("SVTI")]
         public async Task<ActionResult<string>> RefreshSVTI()
         {
-            return await RefreshDb.RefreshSVTI(SAAMcontext);
+            return await RefreshDb.RefreshTerminal(SAAMcontext,3);
         }
 
     }
